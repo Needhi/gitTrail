@@ -1,0 +1,68 @@
+<apex:page standardController="Purchase_Order__c" renderAs="pdf" extensions="DisplayPOLTfields">
+
+<CENTER><h1>Price Quote</h1></CENTER>
+
+<apex:form >
+  <apex:pageBlock >
+      
+      <apex:pageBlockSection title="Purchase Order Detail" columns="1" >
+       <apex:outputText value="{!Purchase_Order__c.Name}" />
+       <br></br>
+       <apex:outputText label="Date  " value="{!Purchase_Order__c.Date__c}" />
+       <br></br>
+       <apex:outputText label="Opportunity Name " value="{!Purchase_Order__c.Opportunity_Name__r.Name}" />
+       <br></br>
+      </apex:pageBlockSection>
+     <br></br>
+     <apex:pageBlockSection title="Totals" columns="1">
+       <apex:outputText value="{!Purchase_Order__c.Line_Item__c}" />
+       <br></br>
+       <apex:outputText label="  SubTotal  " value="{!Purchase_Order__c.SubTotal__c}" />
+       <br></br>
+       <apex:outputText label="  Grand Total  " value="{!Purchase_Order__c.Total_Price__c}" />
+       <br></br>       
+      </apex:pageBlockSection>
+     </apex:pageBlock>
+     <br></br>
+     <apex:PageBlock >
+       <apex:PageBlockSection title="Product Details"> 
+        <apex:dataTable border="1" value="{!getpList}" var="p" style="font-size: 100%; " columnsWidth=" 200px, 150px, 150px, 150px, 150px ,100px ">
+                
+                <apex:column >
+                <apex:facet name="header">Product Name</apex:facet><br/>
+                <apex:outputText value="{!p.Product_Name__r.Name}"/>
+                </apex:column>
+                                       
+                <apex:column >
+                <apex:facet name="header">Quantity</apex:facet><br/>    
+                <apex:outputText value="{!p.Quantity__c}"/ >
+                </apex:column>                                
+                        
+                <apex:column >
+                <apex:facet name="header">List Price</apex:facet><br/>    
+                <apex:outputText value="{!p.List_Price__c}"/ >
+                </apex:column>
+                                
+                <apex:column >
+                <apex:facet name="header">Discount</apex:facet><br/>    
+                <apex:outputText value="{!p.Discount__c}"/ >
+                </apex:column>
+                
+                <apex:column >
+                <apex:facet name="header">Total Price</apex:facet><br/>    
+                <apex:outputText value="{!p.Total_Price_With_Discount__c}"/ >
+                </apex:column>
+              
+   </apex:dataTable>
+   </apex:PageBlockSection>
+   </apex:PageBlock>
+  <br></br>
+   <apex:pageBlock >
+     <apex:pageBlockSection title="Price Quote Acceptance Information">
+        <apex:OutputText >Signature </apex:OutputText>______________________________<br></br>
+        <apex:OutputText >Name </apex:OutputText>______________________________<br></br>
+        <apex:OutputText >Date </apex:OutputText>______________________________<br></br>
+     </apex:pageBlockSection>
+   </apex:pageBlock>
+</apex:form>
+</apex:page>

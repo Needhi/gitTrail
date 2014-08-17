@@ -1,0 +1,43 @@
+<apex:page Controller="CampaignController" >
+<h1>User Driven Campaigns</h1>
+<style type="text/css">
+.myDiv{
+   position:absolute;
+   center:60px;
+}
+</style>
+<apex:form >
+  <apex:pageBlock >
+       
+    View : <apex:selectList value="{!campaignOption}" size="1" >
+       <apex:selectOptions value="{!ListViewOptions}" />
+      </apex:selectList>
+      
+      <apex:commandButton action="{!SelectCampAction}" value="Select" />
+      
+    <apex:pageBlockSection id="Block" Rendered="{!Section}" >
+    
+    <apex:pageBlockTable value="{!campaignRecords}" var="record" >
+       
+       <apex:column headerValue="Campaign Name">
+         <apex:commandLink value="{!record.Name}" action="{!linkIsClickedAction}">
+              <apex:param value="{!record.Id}" name="id"  ></apex:param>       
+         </apex:commandLink>
+       </apex:column>
+       
+       <apex:column headerValue="Status" value="{!record.Status}" />
+       <apex:column headerValue="Type" value="{!record.Type}" />
+       <apex:column headerValue="Start Date" value="{!record.StartDate}" />
+       
+    </apex:pageBlockTable>   
+   
+   </apex:pageBlockSection>
+<div class="myDiv">   
+   <apex:panelGrid columns="2" Rendered="{!pagination}">
+      <apex:commandLink action="{!previous}">Previous</apex:commandlink>
+      <apex:commandLink action="{!next}">Next</apex:commandlink>
+    </apex:panelGrid>
+</div>    
+  </apex:pageBlock>
+</apex:form>
+</apex:page>

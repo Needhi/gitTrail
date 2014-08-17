@@ -1,0 +1,57 @@
+<apex:page Controller="regioncontroller">
+ 
+    <apex:form id="form">
+    <apex:pageBlock id="pgBlk">
+   <apex:pageMessages id="messages1"/> 
+    <apex:outputLabel style="font-weight:bold" value="{!welcum}"></apex:outputLabel>  
+   <apex:pageBlockSection columns="2" title="WITH Action Region" id="pgBlkSec">
+      
+      <apex:outputText value="Name" />
+      <apex:actionRegion >
+      <apex:inputText value="{!name}" id="nm">
+         <apex:actionSupport event="onkeyup" reRender="outname,messages1" />
+      </apex:inputText>
+      </apex:actionRegion>
+      <apex:outputText value="Job" />
+      <apex:inputText required="true" id="job2" value="{!job}" >
+       <apex:actionSupport event="onkeyup" reRender="outJob,messages1" />
+      </apex:inputText> 
+   </apex:pageBlockSection>
+   </apex:pageBlock>
+   <apex:pageBlock >
+   <apex:pageBlockSection columns="2" title="Output">
+<apex:outputText id="outname" style="font-weight:bold" value="Name: {!name}" /><br></br>
+<apex:outputText id="outJob" style="font-weight:bold" value="Job  : {!job}" /><br></br><br></br>
+<Center><apex:commandButton action="{!save}" value="Save" /><apex:commandButton value="Show" onclick="populateParent();"/></Center>
+</apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+
+<script>
+function callFunc(obj){
+  alert("I am an alert box!");
+  var nm= document.getElementById('{!$Component.form.pgBlk.pgBlkSec.nm}').value;
+  var Job= document.getElementById('{!$Component.form.pgBlk.pgBlkSec.job2}').value;
+  alert(nm+'  '+Job);  
+}
+
+ function populateParent()
+                {
+                    var isCheck = '{!strOncomplete}'; 
+                    if(isCheck == 'yes')
+                    {
+                        alert('If :'+'{!strOncomplete}');
+                        return top.window.opener.closeWindow();
+                    }
+                    else
+                    {
+                        alert('else :'+'{!strOncomplete}');
+                        return false;
+                    }
+                        
+                    //return false;
+                }
+</script>
+ 
+
+</apex:page>

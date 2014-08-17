@@ -1,0 +1,46 @@
+<apex:page StandardController="Purchase_Line_Item__c" recordSetVar="record" extensions="POExtension" >
+   <apex:form >
+   
+   <apex:pageBlock id="msgs">
+   <apex:pageMessages />
+   <apex:CommandButton action="{!save}" value="Select" reRender="poList" rerender="msgs"/> 
+   
+    <apex:pageBlockSection title="Products List" columns="1"  id="poList">
+      <apex:DataTable value="{!product}" var="p"  cellpadding="8" border="1">
+        <apex:column >
+          <apex:facet name="header">
+            <apex:inputCheckbox >
+              <apex:actionSupport event="onclick" action="{!GetSelected}" onsubmit="checkAll(this)" rerender="Selected_PBS" />
+            </apex:inputCheckbox>
+          </apex:facet>
+          <apex:inputCheckbox value="{!p.selected}" id="checkedone">
+              <apex:actionSupport event="onclick" action="{!GetSelected}" rerender="Selected_PBS"/>
+            </apex:inputCheckbox>
+         </apex:column>
+         
+          <apex:column headervalue="Product Name" value="{!p.procObj.Name}" />
+          <apex:column headervalue="Product Code" value="{!p.procObj.ProductCode}" />
+          <apex:column headervalue="Product Description" value="{!p.procObj.Description}" />
+          <apex:column headervalue="UnitPrice" value="{!p.unitPrice}" />
+          <apex:column >
+             <apex:facet name="header">
+             Quantity
+             </apex:facet>
+             <apex:inputText value="{!p.quantityOfProduct}" />
+          </apex:column>
+      </apex:DataTable>
+     </apex:pageBlockSection>   
+  </apex:pageBlock>   
+  </apex:form>
+
+<script>
+function checkAll(cb){
+  var inputElem = document.getElementsByTagName("input");
+  for(var i=0; i<inputElem.length; i++){
+    if(inputElem[i].id.indexOf("checkedone")!=-1)  
+     inputElem[i].checked = cb.checked;
+  }
+}
+
+</script>
+</apex:page>

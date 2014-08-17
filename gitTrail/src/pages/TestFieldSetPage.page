@@ -1,0 +1,42 @@
+<apex:page standardController="a__c" extensions="TestFieldSetExt">
+
+<apex:form >
+<apex:pageBlock title="Fields in Proper Names - Repeat" >
+<apex:pageBlockSection columns="1">
+        <apex:repeat value="{!$ObjectType.a__c.FieldSets.TestFieldSet}" var="f">
+          <apex:outputField value="{!a__c[f]}"/>            
+        </apex:repeat>
+</apex:pageBlockSection>
+</apex:pageBlock>
+
+<apex:pageBlock title="Fields in Proper Names - Table" >
+        <apex:pageBlockTable value="{!$ObjectType.a__c.FieldSets.TestFieldSet}" var="f">
+            <apex:column value="{!f}">   
+                <apex:facet name="header">API Name</apex:facet>           
+            </apex:column> 
+            <apex:column value="{!f.label}">   
+                <apex:facet name="header">Label</apex:facet>           
+            </apex:column>            
+            <apex:column >  
+                 <apex:facet name="header">asValue</apex:facet>
+               <apex:inputField value="{!a__c[f]}"/> 
+            </apex:column>              
+</apex:pageBlockTable>  
+</apex:pageBlock>
+
+<apex:pageBlock title="Fields in Proper Names-Extension" >
+<apex:pageBlockSection columns="3">
+        <apex:pageBlockTable value="{!aObj}" var="f">
+            
+            <apex:column value="{!f.Name}">   
+                <apex:facet name="header">Name</apex:facet>           
+            </apex:column> 
+            <apex:column value="{!f.sal__c}">   
+                <apex:facet name="header">Salary</apex:facet>           
+            </apex:column>           
+                          
+</apex:pageBlockTable>  
+</apex:pageBlockSection>
+</apex:pageBlock> 
+</apex:form>
+</apex:page>

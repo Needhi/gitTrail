@@ -1,0 +1,28 @@
+<apex:page standardController="FiscalYear__c" sidebar="false">
+<script>
+ <style>
+ .container
+ {
+  overflow:auto; 
+  height:100px;   
+ }
+ .headerRow .headerStyle
+ {
+  color: #CC0000 !important;
+  position:relative;
+  TOP: expression(this.offsetParent.scrollTop-2);        
+ }
+ </style>
+</script>
+<apex:form > 
+  <div><font size='3'><b>Fiscal Year Pricing Detail</b></font></div>
+  <br></br>
+  <apex:outputPanel layout="block" style="background:yellow" styleclass="container"><b><font size='2'>Pricing Detail Information</font></b>
+  </apex:outputPanel>
+  <br></br>
+  <apex:inputText label="Station" value="{!FiscalYear__c.Station__c}"/><br></br>
+  <apex:inputText label="Fiscal Year" value="{!FiscalYear__c.Fiscal_Year__c}"/><br></br>     
+  <apex:inputText label="TSR" value="{!FiscalYear__c.TSR__c}"/><br></br>      
+  <apex:inputText label="TSR Level" value="{!FiscalYear__c.TSR_Level__c}"/>  
+</apex:form>
+</apex:page>

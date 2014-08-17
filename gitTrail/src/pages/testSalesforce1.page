@@ -1,0 +1,25 @@
+<apex:page controller="testSalesforce1Controller" tabStyle="Account" sidebar="false" showheader="false">
+
+<h1>Welcum to Salesforce1 Learning</h1>
+<apex:form >
+   Name : <apex:inputText label="Name" value="{!Name}"/>
+   <br></br>
+   Education : <apex:selectList label="Education" size="1" multiSelect="true" value="{!EducationList}" >
+     <apex:selectoptions value="{!items}" ></apex:selectoptions>
+   </apex:selectList>
+   <br></br>
+   <apex:commandButton value="Check" action="{!check}" rerender="output" status="status" /> 
+</apex:form>
+
+<apex:outputPanel id="output">
+ <apex:actionStatus id="status" startText="loading....">
+   <apex:facet name="stop">
+     <apex:outputPanel >
+       <p><b>Selected :  </b></p>
+       <apex:outputText value="{!Name}" />
+       <apex:dataList value="{!EducationList}" var="c">{!c}</apex:dataList>
+     </apex:outputPanel>
+   </apex:facet>
+ </apex:actionStatus>
+</apex:outputPanel>
+</apex:page>

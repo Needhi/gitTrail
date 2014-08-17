@@ -1,0 +1,8 @@
+<apex:page controller="RedirectController">
+  <apex:form >
+     <apex:commandLink action="{!reDirect}" target="_self" value="Save " id="theButton"/>
+     <apex:commandLink action="{!reDirect}" target="_new" value=" New "/>
+     <apex:commandLink action="{!reDirect}" target="_blank" value=" blank "/>
+     <apex:commandLink action="{!reDirect}" target="_top" value=" top "/>
+  </apex:form>
+</apex:page>

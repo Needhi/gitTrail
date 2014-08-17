@@ -1,0 +1,81 @@
+<apex:page standardController="Quote" renderAs="pdf" tabStyle="Quote">
+<h1>Quotations Page</h1>
+    <apex:form >
+     <apex:PageBlock >
+    <apex:pageBlockSection title="Quote Details" columns="1" >
+    <apex:outputText value="{!Quote.Name}" style="font-size: 80%; "/> <br></br>
+    <apex:outputText value="{!Quote.QuoteNumber}"  style="font-size: 80%; "/>
+    </apex:PageBlockSection>
+    </apex:PageBlock>
+    
+       <apex:PageBlock >
+    <apex:PageBlockSection title="Product Details"> 
+    <apex:dataTable border="1" value="{!Quote.QuoteLineItems}" var="c" style="font-size: 100%; " columnsWidth=" 200px, 150px, 150px, 150px, 150px ,100px ">
+                
+                <apex:column >
+                <apex:facet name="header">Product Name</apex:facet><br/>
+                <apex:outputText value="{!c.PriceBookEntry.Product2.Name}"/>
+                </apex:column>
+                
+                <apex:column >
+                <apex:facet name="header">Date</apex:facet><br/>    
+                <apex:outputText value="{!c.CreatedDate}"/ >
+                </apex:column>
+                        
+                 <apex:column >
+                <apex:facet name="header">Quantity</apex:facet><br/>    
+                <apex:outputText value="{!c.Quantity}"/ >
+                </apex:column>
+                                
+                        
+                <apex:column >
+                <apex:facet name="header">List Price</apex:facet><br/>    
+                <apex:outputText value="{!c.ListPrice}"/ >
+                </apex:column>
+                
+                <apex:column >
+                <apex:facet name="header">Total Price</apex:facet><br/>    
+                <apex:outputText value="{!c.TotalPrice}"/ >
+                </apex:column>
+              
+   </apex:dataTable>
+   </apex:PageBlockSection>
+   </apex:PageBlock>
+   
+   <apex:PageBlock >
+     <apex:pageBlockSection title="Totals" columns="1"  >
+               
+                <apex:outputText value="{!Quote.Discount}"  style="font-size: 80%; "/> <br></br>
+                <apex:outputText value="{!Quote.Subtotal}"  style="font-size: 80%; "/> <br></br>  
+                <apex:outputText value="{!Quote.TotalPrice}"  style="font-size: 80%; "/> <br></br>
+              
+                
+    </apex:PageBlockSection>
+    </apex:PageBlock>
+    <apex:PageBlock >
+    <apex:pageBlockSection title="Billing Details" columns="1" >
+               
+                <apex:outputText value="{!Quote.BillingName}"  style="font-size: 80%; "/> <br></br>
+                <apex:outputText value="{!Quote.BillingStreet}"  style="font-size: 80%; "/> <br></br>  
+                <apex:outputText value="{!Quote.BillingCity}"  style="font-size: 80%; "/> <br></br>
+                <apex:outputText value="{!Quote.BillingState}"  style="font-size: 80%; "/> <br></br>
+                
+                
+    </apex:PageBlockSection>
+    </apex:PageBlock>
+    <apex:PageBlock >
+     <apex:pageBlockSection title="Shipping Details" columns="1" >
+               
+                <apex:outputText value="{!Quote.ShippingName}"  style="font-size: 80%; "/> <br></br>
+                <apex:outputText value="{!Quote.ShippingStreet}"  style="font-size: 80%; "/> <br></br>  
+                <apex:outputText value="{!Quote.ShippingCity}"  style="font-size: 80%; "/> <br></br>
+                <apex:outputText value="{!Quote.ShippingState}"  style="font-size: 80%; "/> <br></br>
+                
+    </apex:PageBlockSection>
+    </apex:PageBlock>
+ 
+   
+      
+    
+</apex:form>
+</apex:page>

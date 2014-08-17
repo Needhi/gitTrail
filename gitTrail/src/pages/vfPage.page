@@ -1,0 +1,22 @@
+<apex:page controller="vfpagetest">
+
+<apex:pageBlock >
+
+<table>
+    <th>test</th>
+
+    <apex:repeat value="{!tmp}" var="outerKey">
+    <tr>
+    <apex:repeat value="{!tmp[outerKey]}" var="innerKey">
+    <td>{!outerKey} - {!innerKey}</td>
+    <td>{!tmp[outerKey][innerKey]}</td>
+    </apex:repeat>
+    </tr>
+    </apex:repeat>
+   </table>
+
+
+</apex:pageBlock>
+
+
+</apex:page>

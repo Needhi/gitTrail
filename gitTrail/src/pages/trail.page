@@ -1,0 +1,320 @@
+<apex:page standardcontroller="FiscalYear__c" >
+<script>     
+    function colorPageBlock(pageblock, color) {
+        //alert(pageblock);
+        if (pageblock != null)
+            pageblock.firstChild.style.cssText = "background-color: "+ color + "; !important" 
+                                        +"background-repeat:no-repeat;"
+                                        +"background-position:left;";
+    }
+    
+	function calculateSum(tableId, colNumber){
+	  var result = 0;	  		
+	  try
+	  {
+	    var tableElem = document.getElementById(tableId);	    		   
+	    var tableBody = tableElem.getElementsByTagName("tbody").item(0);	     
+	    var i;
+	    var howManyRows = tableBody.rows.length;
+	    
+	    for (i=1; i<=(howManyRows-1); i++) 
+	    {
+	       if(i==2 || i==4){
+	           //alert('i ' +i);
+		       var thisTrElem = tableBody.rows[i];
+		       var thisTdElem = thisTrElem.cells[colNumber];			
+		       var thisTextNode = thisTdElem.childNodes.item(0);
+		       var thisNumber = parseFloat(thisTextNode.data);
+		       //alert(thisNumber);
+		       if(thisNumber != NaN)
+		        result += thisNumber;
+		   }
+		 } 
+		//alert('result'+result);	 
+	  } 
+	  catch (ex)
+	  {
+	     alert("Exception in function calculateSum()\n" + ex);
+	     result = 0;
+	  }
+	  finally
+	  {
+	     return result;
+	  }	
+}
+     
+</script>
+
+<!-- this is through eclipse -->
+<style type="text/css">
+ .bPageBlock {
+   width: auto;
+  } 
+  .bPageBlock .detailList {
+    width: auto;
+  }
+</style>
+
+<apex:messages />
+   
+    <apex:form >
+        <div><b><font size="4">Fiscal Year Pricing Detail</font> </b></div> <br></br>
+        <apex:pageblock mode="edit"  id="Section" >
+         
+          <!--    <apex:pageblockbuttons >
+                <apex:commandbutton value="Save" action="{!Save}"/>
+                <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+            </apex:pageblockbuttons>
+         -->
+         
+         <div>
+           <table>
+              <tr>
+              <td width="40%">Fiscal Year Name : <input type="text" name="Name" value="{!FiscalYear__c.Name}" /></td>
+              <td width="60%"><apex:commandButton style="border-radius:9px;text-align:left !important;" value="Refresh" /></td>
+              </tr>
+              <tr>
+              <td width="30%">Station : <input type="text" name="Station" value="{!FiscalYear__c.Station__c}" /></td>
+              </tr>
+              <tr>
+              <td width="30%">Year : <input type="text" name="Station" value="{!FiscalYear__c.Fiscal_Year__c}" /></td>
+              </tr>
+              <tr>
+               <td width="30%">TSR : <input type="text" name="Station" value="{!FiscalYear__c.TSR__c}" /></td>
+              </tr>
+              <tr>
+              <td width="30%">TSR Level : <input type="text" name="Station" value="{!FiscalYear__c.TSR_Level__c}" /></td>
+              </tr>
+           </table>
+         </div>
+                <apex:pageblocksection title="Pricing Detail Information" showheader="true" columns="2" id="firstSection">
+                   
+                    <apex:inputfield value="{!FiscalYear__c.Name}" required="true" /> 
+                    
+                    <apex:commandButton style="border-radius:9px;text-align:left !important;" value="Refresh" />
+                     
+                    <apex:inputfield value="{!FiscalYear__c.Station__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!FiscalYear__c.Fiscal_Year__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!FiscalYear__c.TSR__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                    <apex:inputfield value="{!FiscalYear__c.TSR_Level__c}" required="false"/>
+                    <apex:pageblocksectionitem />
+                   <script>colorPageBlock(document.getElementById("{!$Component.Section.firstSection}"), "Yellow");</script>   
+                </apex:pageblocksection>
+             <div class="myClass">
+            <apex:pageBlockSection title="Morning Edition Fees" columns="3" id="secondSection" >
+              
+                <apex:inputField value="{!FiscalYear__c.ME_News_Mag_Pricing_Status__c}" style="float:left;"/>
+                <apex:inputCheckbox value="{!FiscalYear__c.No_Lisitener_Hour_DAta__c}" style="float:left;"/>
+                <apex:inputCheckbox value="{!FiscalYear__c.Will_Not_Purchase_News__c}" style="float:left;"/>
+                <script>colorPageBlock(document.getElementById("{!$Component.Section.secondSection}"), "Yellow");</script>
+            </apex:pageBlockSection>
+           </div>  
+         <table width="100%"><tr>
+         <td width="100%">
+            
+               <apex:dataTable id="c3HardwareList" value="{!FiscalYear__c}" var="hw" bgcolor="#F3F3EC"
+                styleClass="list" rowClasses="dataRow" onRowMouseOver="hiOn(this);" onRowMouseOut="hiOff(this);">
+                  <apex:column >
+                     <apex:facet name="header"><b></b></apex:facet>
+                     <apex:outputLink value="/{!FiscalYear__c.id}">
+                        {!FiscalYear__c.name}
+                     </apex:outputLink>
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Fail 2014</b></apex:facet>
+                        {!FiscalYear__c.Station__c}
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Spring 2014</b></apex:facet>
+                        {!FiscalYear__c.TSR__c}
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Fail 2013</b></apex:facet>
+                        {!FiscalYear__c.TSR_Level__c}
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Spring 2013</b></apex:facet>
+                        {!FiscalYear__c.Fiscal_Year__c}
+                  </apex:column>
+               </apex:dataTable>
+            
+         </td></tr></table>
+         <br></br> 
+         <table style="width:100%" border="1" cellspacing="4" cellpadding="4" id="tId">
+            <tr>
+              <th></th>
+              <th id="Fail 2014" >Fail 2014</th>
+              <th id="Spring 2014" >Spring 2014</th>
+              <th id="Fail 2013" >Fail 2013</th>
+              <th id="Spring 2013" >Spring 2013</th>
+            </tr>
+            <tr>
+              <td align="center">PPM Hours</td>
+              <td headers="Fail 2014" align="center">12</td>        
+              <td headers="Spring 2014" align="center">22</td>
+              <td headers="Fail 2013" align="center">23</td>        
+              <td headers="Spring 2013" align="center">24</td>
+              </tr>
+            <tr>
+              <td align="center">PPM Price</td>
+             <td headers="Fail 2014" align="center">31</td>     
+              <td headers="Spring 2014" align="center">32</td>
+              <td headers="Fail 2013" align="center">33</td>        
+              <td headers="Spring 2013" align="center">34</td>
+            </tr>
+            <tr>
+              <td align="center">LH Hours</td>
+             <td headers="Fail 2014" align="center">41</td>     
+              <td headers="Spring 2014" align="center">42</td>
+              <td headers="Fail 2013" align="center">43</td>        
+              <td headers="Spring 2013" align="center">44</td>
+            </tr>
+            <tr>
+              <td align="center">LH Price</td>
+              <td headers="Fail 2014" align="center">51</td>        
+              <td headers="Spring 2014" align="center">52</td>
+              <td headers="Fail 2013" align="center">53</td>        
+              <td headers="Spring 2013" align="center">54</td>
+            </tr>
+            <tr>
+              <td align="center" width="20%">Sum of PPM and LH Hours</td>
+             <td headers="Fail 2014" align="center"><script>document.write(calculateSum('tId', 1))</script></td>     
+              <td headers="Spring 2014" align="center"><script>document.write(calculateSum('tId', 2))</script></td>
+              <td headers="Fail 2013" align="center"><script>document.write(calculateSum('tId', 3))</script></td>        
+              <td headers="Spring 2013" align="center"><script>document.write(calculateSum('tId', 4))</script></td>
+            </tr>
+        </table>
+        
+        <apex:pageblocksection >
+         <apex:inputfield value="{!FiscalYear__c.Uncapped_Price__c}" required="false" />
+         <apex:inputfield value="{!FiscalYear__c.PPM_Rate__c}" required="false"/>
+         
+         <apex:inputfield value="{!FiscalYear__c.Last_FY_Price__c}" required="false"/>
+         <apex:inputfield value="{!FiscalYear__c.LH_Rate__c}" required="false"/>
+         
+         <apex:inputfield value="{!FiscalYear__c.Capped_Final_Price__c}" required="false"/>
+         <apex:inputfield value="{!FiscalYear__c.Base_Price__c}" required="false"/>
+         
+         <apex:inputfield value="{!FiscalYear__c.Cap__c}" required="false"/>
+         </apex:pageblocksection>
+         
+          <apex:pageBlockSection title="All things considered Fees" columns="3" id="thirdSection">
+              
+                <apex:inputField value="{!FiscalYear__c.ME_News_Mag_Pricing_Status__c}" style="float:left;" />
+                <apex:inputCheckbox value="{!FiscalYear__c.No_Lisitener_Hour_DAta__c}" style="float:left;" />
+                <apex:inputCheckbox value="{!FiscalYear__c.Will_Not_Purchase_News__c}" style="float:left;"/>
+                <script>colorPageBlock(document.getElementById("{!$Component.Section.thirdSection}"), "Yellow");</script>
+            </apex:pageBlockSection>
+            
+            <div id="dicSec" style="margin-left:2%" title="All things considered Fees">
+              <table>
+              <tr>
+              <td width="25%">
+              ME News Mag Pricing Status : <input type="text" name="ME_News_Mag_Pricing_Status" value="{!FiscalYear__c.ME_News_Mag_Pricing_Status__c}" />
+              </td>
+              <td width="15%">
+              No Listener Hour Data : <input type="checkbox" name="No_Lisitener_Hour_DAta" value="{!FiscalYear__c.No_Lisitener_Hour_DAta__c}"/>
+              </td>
+              <td width="25%">              
+              Will Not Purchase News Magazine : <input type="checkbox" name="Will_Not_Purchase_News" value="{!FiscalYear__c.Will_Not_Purchase_News__c}"/>             
+             </td>
+             </tr>
+             </table>
+            </div>
+             
+         <table width="100%"><tr>
+         <td width="100%">
+            
+               <apex:dataTable value="{!FiscalYear__c}" var="hw" bgcolor="#F3F3EC"
+                styleClass="list" rowClasses="dataRow" onRowMouseOver="hiOn(this);" onRowMouseOut="hiOff(this);">
+                  <apex:column >
+                     <apex:facet name="header"><b></b></apex:facet>
+                     <apex:outputLink value="/{!FiscalYear__c.id}">
+                        {!FiscalYear__c.name}
+                     </apex:outputLink>
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Fail 2014</b></apex:facet>
+                        {!FiscalYear__c.Station__c}
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Spring 2014</b></apex:facet>
+                        {!FiscalYear__c.TSR__c}
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Fail 2013</b></apex:facet>
+                        {!FiscalYear__c.TSR_Level__c}
+                  </apex:column>
+                  <apex:column >
+                     <apex:facet name="header"><b>Spring 2013</b></apex:facet>
+                        {!FiscalYear__c.Fiscal_Year__c}
+                  </apex:column>
+               </apex:dataTable>
+            
+         </td></tr></table>
+         <br></br>
+         <table style="width:75%" align="center" border="1" cellspacing="4" cellpadding="4" id="tId1" >
+            <tr>
+              <th></th>
+              <th id="Fail 2014" >Fail 2014</th>
+              <th id="Spring 2014" >Spring 2014</th>
+              <th id="Fail 2013" >Fail 2013</th>
+              <th id="Spring 2013" >Spring 2013</th>
+            </tr>
+            <tr>
+              <td align="center">PPM Hours</td>
+              <td headers="Fail 2014" align="center">12</td>        
+              <td headers="Spring 2014" align="center">22</td>
+              <td headers="Fail 2013" align="center">23</td>        
+              <td headers="Spring 2013" align="center">24</td>
+              </tr>
+            <tr>
+              <td align="center">PPM Price</td>
+             <td headers="Fail 2014" align="center">31</td>     
+              <td headers="Spring 2014" align="center">32</td>
+              <td headers="Fail 2013" align="center">33</td>        
+              <td headers="Spring 2013" align="center">34</td>
+            </tr>
+            <tr>
+              <td align="center">LH Hours</td>
+             <td headers="Fail 2014" align="center">41</td>     
+              <td headers="Spring 2014" align="center">42</td>
+              <td headers="Fail 2013" align="center">43</td>        
+              <td headers="Spring 2013" align="center">44</td>
+            </tr>
+            <tr>
+              <td align="center">LH Price</td>
+              <td headers="Fail 2014" align="center">51</td>        
+              <td headers="Spring 2014" align="center">52</td>
+              <td headers="Fail 2013" align="center">53</td>        
+              <td headers="Spring 2013" align="center">54</td>
+            </tr>
+            <tr>
+              <td align="center" width="30%">Sum of PPM and LH Hours</td>
+             <td headers="Fail 2014" align="center"><script>document.write(calculateSum('tId1', 1))</script></td>     
+              <td headers="Spring 2014" align="center"><script>document.write(calculateSum('tId1', 2))</script></td>
+              <td headers="Fail 2013" align="center"><script>document.write(calculateSum('tId1', 3))</script></td>        
+              <td headers="Spring 2013" align="center"><script>document.write(calculateSum('tId1', 4))</script></td>
+            </tr>
+        </table>
+        
+        <apex:pageblocksection >
+	         <apex:inputfield value="{!FiscalYear__c.Uncapped_Price__c}" required="false" />
+	         <apex:inputfield value="{!FiscalYear__c.PPM_Rate__c}" required="false"/>
+	         
+	         <apex:inputfield value="{!FiscalYear__c.Last_FY_Price__c}" required="false"/>
+	         <apex:inputfield value="{!FiscalYear__c.LH_Rate__c}" required="false"/>
+	         
+	         <apex:inputfield value="{!FiscalYear__c.Capped_Final_Price__c}" required="false"/>
+	         <apex:inputfield value="{!FiscalYear__c.Base_Price__c}" required="false"/>
+	         
+	         <apex:inputfield value="{!FiscalYear__c.Cap__c}" required="false"/>
+	          
+         </apex:pageblocksection>
+         
+     </apex:pageblock>    
+   </apex:form>    
+</apex:page>

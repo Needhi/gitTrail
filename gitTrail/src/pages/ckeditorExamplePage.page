@@ -1,0 +1,31 @@
+<apex:page standardController="a__c" standardStylesheets="true" showHeader="true" sidebar="true">
+<apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"/>
+<script> 
+  $(document).ready(function(){
+
+        CKEDITOR.on('instanceReady', function(e) {
+            if (e.editor.config.magic) return;
+            var target = e.editor.config.bodyId;
+            var name = e.editor.name;
+            e.editor.destroy();
+			alert(target);
+            CKEDITOR.editorConfig = function( config ) { config.magic = true; }
+            CKEDITOR.replace(name, {
+                        height : 600, 
+                        bodyId : target
+            });
+        });
+    });
+</script>    
+<apex:form >
+       <apex:pageBlock >
+       <apex:pageBlockSection columns="1" >
+                <apex:pageBlockSectionItem >
+                   <apex:inputText value="{!a__c.Remark__c}" /> 
+                   <apex:inputField value="{!a__c.Remark__c}"/>
+                </apex:pageBlockSectionItem>
+                <apex:commandButton value="Save" action="{!Save}" />
+          </apex:pageBlockSection>
+       </apex:pageBlock>
+   </apex:form>
+</apex:page>

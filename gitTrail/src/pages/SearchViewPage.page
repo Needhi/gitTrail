@@ -1,0 +1,43 @@
+<apex:page controller="SearchController">
+<h1>Search</h1>
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockSection title="Search for Name, FirstName, LastName">
+<apex:inputText Label="ToSearch" id="toSearch" value="{!searchStr}" />
+<apex:commandButton value="Search" action="{!searchAction}" />
+<apex:pageMessages />
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Lead Section" rendered="{!leadRen}">
+
+   <apex:pageBlockTable value="{!leadSearch}" var="lead" >
+            <apex:column value="{!lead.Name}"/>
+            <apex:column value="{!lead.FirstName}"/>
+            <apex:column value="{!lead.LastName}"/>
+   </apex:pageBlockTable>  
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Account Section" rendered="{!accRen}">
+   <apex:pageBlockTable value="{!accountSearch}" var="account">
+            <apex:column value="{!account.Name}"/>            
+   </apex:pageBlockTable>
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Contact Section" rendered="{!conRen}">
+   <apex:pageBlockTable value="{!contactSearch}" var="contact">
+            <apex:column value="{!contact.Name}"/>
+            <apex:column value="{!contact.FirstName}"/>
+            <apex:column value="{!contact.LastName}"/>            
+   </apex:pageBlockTable>
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Opportunity Section" rendered="{!oppRen}">
+   <apex:pageBlockTable value="{!oppSearch}" var="opp">
+            <apex:column value="{!opp.Name}"/>            
+   </apex:pageBlockTable>
+</apex:pageBlockSection>
+
+
+</apex:pageBlock>
+</apex:form>
+</apex:page>
